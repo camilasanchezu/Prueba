@@ -43,44 +43,33 @@ namespace Prueba.Services
             return new Tarea();
         }
 
-        public async Task<List<Producto>> GetProductos()
+        public async Task<List<Tarea>> GetProductos()
         {
-            var response = await _httpClient.GetAsync("/api/Producto");
+            var response = await _httpClient.GetAsync("/api/Tarea");
             if (response.IsSuccessStatusCode)
             {
                 var json_response = await response.Content.ReadAsStringAsync();
-                List<Producto> productos = JsonConvert.DeserializeObject<List<Producto>>(json_response);
+                List<Tarea> productos = JsonConvert.DeserializeObject<List<Tarea>>(json_response);
                 return productos;
             }
-            return new List<Producto>();
+            return new List<Tarea>();
 
         }
 
-        public async Task<Producto> PostProducto(Producto producto)
+        public async Task<Tarea> PostProducto(Tarea tarea)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(producto), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(tarea), Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync("/api/Producto/", content);
             if (response.IsSuccessStatusCode)
             {
                 var json_response = await response.Content.ReadAsStringAsync();
-                Producto producto2 = JsonConvert.DeserializeObject<Producto>(json_response);
-                return producto2;
+                Tarea tarea2 = JsonConvert.DeserializeObject<Tarea>(json_response);
+                return tarea2;
             }
-            return new Producto();
+            return new Tarea();
         }
 
-        public async Task<Producto> PutProducto(int IdProducto, Producto producto)
-        {
-            var content = new StringContent(JsonConvert.SerializeObject(producto), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PutAsync($"/api/Producto/{IdProducto}", content);
-            if (response.IsSuccessStatusCode)
-            {
-                var json_response = await response.Content.ReadAsStringAsync();
-                Producto producto2 = JsonConvert.DeserializeObject<Producto>(json_response);
-                return producto2;
-            }
-            return new Producto();
-        }
+       
     }
 
 }
